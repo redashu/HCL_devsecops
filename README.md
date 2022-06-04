@@ -29,4 +29,15 @@
 <img src="ec2.png">
 
 
+### lets create our first virtual machine 
 
+### connect to linux 
+
+<img src="ssh.png">
+
+###
+
+```
+cd Downloads
+ssh -i Ashu-pass.pem  ec2-user@3.17.73.227 
+```
