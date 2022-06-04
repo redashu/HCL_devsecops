@@ -16,5 +16,17 @@
 
 <img src="cp.png">
 
+### PHysical vs Virtual machine / server 
+
+<img src="vm1.png">
+
+### how to access any remote machine 
+
+<img src="access.png">
+
+### we will be working in Ohio Region in AWS cloud platform 
+
+<img src="ec2.png">
+
 
 
