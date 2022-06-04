@@ -41,3 +41,7 @@
 cd Downloads
 ssh -i Ashu-pass.pem  ec2-user@3.17.73.227 
 ```
+
+### meeting link 
+
+[join here](https://us02web.zoom.us/meeting/register/tZcpdu-tqzMuG9NiUmFNFwz6kPPFbqeW89c7)
