@@ -42,6 +42,52 @@ cd Downloads
 ssh -i Ashu-pass.pem  ec2-user@3.17.73.227 
 ```
 
-### meeting link 
+### application server here
 
-[join here](https://us02web.zoom.us/meeting/register/tZcpdu-tqzMuG9NiUmFNFwz6kPPFbqeW89c7)
+<img src="httpd.png">
+
+## to setup httpd server 
+
+### step1 install it 
+
+```
+sudo yum  install  httpd 
+Failed to set locale, defaulting to C
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                            | 3.7 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.53-1.amzn2 will be installed
+--> Processing Dependency: httpd-tools = 2.4.53-1.amzn2 for package: httpd-2.4.53-1.amzn2.x86_64
+--> Processing Dependency: httpd-filesystem = 2.4.53-1.amzn2 for package: httpd-2.4.53-1.amzn2.x86_64
+--> Processing Dependency: system-logos-httpd for package: httpd-2.4.53-1.amzn2.x86_64
+--> Processing Dependency: mod_http2 for packa
+```
+
+### copy website to apache httpd server 
+
+```
+ sudo -i
+[root@ip-172-31-40-70 ~]# 
+[root@ip-172-31-40-70 ~]# cd /var/www/html/
+[root@ip-172-31-40-70 html]# ls
+[root@ip-172-31-40-70 html]# echo hello i am ashutoshh  >index.html 
+[root@ip-172-31-40-70 html]# ls
+index.html
+[root@ip-172-31-40-70 html]# 
+
+```
+
+### start httpd application server 
+
+```
+ systemctl start  httpd 
+[root@ip-172-31-40-70 html]# systemctl status  httpd 
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Sat 2022-06-04 09:58:55 UTC; 7s ago
+     Docs: man:httpd.service(8)
+ Main PID: 3781 (httpd)
+
+```
+
