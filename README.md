@@ -91,3 +91,28 @@ index.html
 
 ```
 
+### Importance of load balancer in webapp services 
+
+<img src="lb.png">
+
+### cloning sample application 
+
+```
+ cd  /tmp/
+[root@ip-172-31-32-87 tmp]# git clone https://github.com/schoolofdevops/html-sample-app.git
+Cloning into 'html-sample-app'...
+remote: Enumerating objects: 74, done.
+remote: Total 74 (delta 0), reused 0 (delta 0), pack-reused 74
+Receiving objects: 100% (74/74), 1.38 MiB | 10.03 MiB/s, done.
+Resolving deltas: 100% (5/5), done.
+[root@ip-172-31-32-87 tmp]# 
+[root@ip-172-31-32-87 tmp]# ls
+html-sample-app
+
+```
+
+### Cloud Delivery Models 
+
+<img src="cd.png">
+
+
