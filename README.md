@@ -35,5 +35,9 @@
 
 <img src="devops1.png">
 
+### getting started with cloud resources provisioning tool  terraform -- non cloud resources 
+
+<img src="terraform.png">
+
 
 
