@@ -15,5 +15,25 @@
     6  systemctl status  httpd
 ```
 
+### changing resource of vm 
+
+### we need to stop the vm 
+
+### creating and confiugration is the new problem which leads to time 
+
+<img src="prob1.png">
+
+### solving above problem by implementing logics in ops 
+
+<img src="prob2.png">
+
+### devops tools for provisioning and configuration management
+
+<img src="devops.png">
+
+### intro to terraform and ansible 
+
+<img src="devops1.png">
+
 
 
