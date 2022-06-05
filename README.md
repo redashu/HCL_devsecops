@@ -150,3 +150,10 @@ aws_instance.ashuvm1: Creation complete after 32s [id=i-0a9ad48e22cd90d1d]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
+
+### terraform in one line 
+
+<img src="terraform111.png">
+
+
+
