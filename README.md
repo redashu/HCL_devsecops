@@ -155,5 +155,88 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 <img src="terrform111.png">
 
+### destroy  / delete things 
 
+```
+terraform destroy 
+```
+
+## starting Ansible -- configuration management tool 
+
+<img src="ansible.png">
+
+### check ansible is installed 
+
+```
+[root@ip-172-31-46-30 ~]# ansible --version 
+ansible 2.9.23
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.18 (default, Jun 10 2021, 00:11:02) [GCC 7.3.1 20180712 (Red Hat 7.3.1-13)]
+[root@ip-172-31-46-30 ~]# 
+
+
+```
+
+### creating vm and login to ec2-user 
+
+```
+fire@ashutoshhs-MacBook-Air Downloads % ssh  -i ashuday2.pem   ec2-user@3.14.81.200  
+The authenticity of host '3.14.81.200 (3.14.81.200)' can't be established.
+ECDSA key fingerprint is SHA256:7OEZCDwGpGVkNp+HemHbQCHxG4mvqmTjS+vHxD1MkGE.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '3.14.81.200' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+2 package(s) needed for security, out of 6 available
+Run "sudo yum update" to apply all updates.
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+[ec2-user@ip-172-31-37-223 ~]$ 
+[ec2-user@ip-172-31-37-223 ~]$ 
+[ec2-user@ip-172-31-37-223 ~]$ 
+
+```
+
+### ansible playbook and how to run it 
+
+### apache.yaml 
+
+```
+---
+- hosts: myvm 
+  remote_user: ec2-user
+  tasks:
+  - name: lets run first command 
+    command: date 
+```
+
+### ansible host inventory 
+
+```
+[myvm]
+172.31.37.223
+172.31.32.236
+172.31.36.63
+172.31.46.194
+172.31.32.32
+172.31.36.116
+172.31.46.230
+172.31.37.89
+172.31.36.64
+172.31.45.68
+```
+
+### how to run it 
+
+```
+[ashu@ip-172-31-46-30 ansible_tasks]$ ls
+apache.yaml  target.txt
+[ashu@ip-172-31-46-30 ansible_tasks]$ ansible-playbook -i target.txt  --ask-pass  apache.yaml 
+```
 
