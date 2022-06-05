@@ -153,7 +153,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ### terraform in one line 
 
-<img src="terraform111.png">
+<img src="terrform111.png">
 
 
 
