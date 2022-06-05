@@ -240,3 +240,8 @@ apache.yaml  target.txt
 [ashu@ip-172-31-46-30 ansible_tasks]$ ansible-playbook -i target.txt  --ask-pass  apache.yaml 
 ```
 
+### ansible how it works 
+
+<img src="work.png">
+
+
