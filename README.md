@@ -222,4 +222,63 @@ PLAY RECAP *********************************************************************
 172.31.37.223              : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 ```
+### YAML 3 
+
+```
+---
+- hosts: all
+  remote_user: ec2-user 
+  become: true
+  tasks: 
+  - name: testing all the target servers
+    command: date 
+    register: x # storing output using register 
+
+  - name: showing output of date command 
+    debug:
+      msg: "{{ x.stdout }}"
+
+  - name: installing apache httpd server 
+    yum: 
+      name: httpd
+      state: present 
+```
+
+### running file 
+
+```
+ansible-playbook -i inventory  apache.yaml --ask-pass
+```
+
+### FInal apache server YAML and its targets 
+
+```
+---
+- hosts: all
+  remote_user: ec2-user 
+  become: true
+  tasks: 
+  - name: testing all the target servers
+    command: date 
+    register: x # storing output using register 
+
+  - name: showing output of date command 
+    debug:
+      msg: "{{ x.stdout }}"
+
+  - name: installing apache httpd server 
+    yum: 
+      name: httpd
+      state: present 
+
+  - name: copy file from ansible machine to all the target machines
+    copy: 
+      src: ashu.html
+      dest: /var/www/html/ashu.html # all target servers will have this file
+
+  - name: starting httpd service 
+    service:
+      name: httpd
+      state: started
+```
 
