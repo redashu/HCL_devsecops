@@ -315,3 +315,74 @@ ansible-playbook -i inventory  apache.yaml --ask-pass
 
 <img src="cont2.png">
 
+
+###  Docker for creating containers 
+
+<img src="docker.png">
+
+### Installing docker client 
+
+```
+yum install docker 
+```
+
+### testing it 
+
+```
+ docker  -v
+Docker version 20.10.13, build a224086
+[root@ip-172-31-46-30 ~]# 
+
+
+```
+
+### setup docker server --- 
+
+```
+yum  install docker  -y
+Failed to set locale, defaulting to C
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                           | 3.7 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 0:20.10.13-2.amzn2 will be installed
+--> Processing Dependency: runc >= 1.0.0 for package: docker-20.10.13-2.amzn2.x86_64
+--> Processing Dependency: libcgroup >= 0.40.rc1-5.15 for package: docker-20.10.13-2.amzn2.x86_64
+--> Processing Dependency: containerd >= 
+```
+
+### configure Docker server 
+
+```
+ cat  /etc/sysconfig/docker
+# The max number of open files for the daemon itself, and all
+# running containers.  The default value of 1048576 mirrors the value
+# used by the systemd service unit.
+DAEMON_MAXFILES=1048576
+
+# Additional startup options for the Docker daemon, for example:
+# OPTIONS="--ip-forward=true --iptables=true"
+# By default we limit the number of open files per container
+OPTIONS="--default-ulimit nofile=32768:65536 -H tcp://0.0.0.0:2375"
+
+# How many seconds the sysvinit script waits for the pidfile to appear
+# when starting the daemon.
+DAEMON_PIDFILE_TIMEOUT=10
+[root@ip-172-31-19-171 ~]# 
+
+
+```
+
+### starting docker serivce 
+
+```
+ systemctl enable --now docker  
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+[root@ip-172-31-19-171 ~]# systemctl status docker 
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2022-06-06 10:53:01 UTC; 6s ago
+     Docs: https://docs.docker.com
+  Process: 3754 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
+  Process: 3752 ExecStartPre=/bin/mkdir
+```
