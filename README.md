@@ -386,3 +386,77 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
   Process: 3754 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
   Process: 3752 ExecStartPre=/bin/mkdir
 ```
+
+### How to connect remote docker engine from docker client 
+
+
+```
+[ashu@ip-172-31-46-30 automation]$ docker  context ls
+NAME        DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ docker  context  create  remote-docker  --docker host="tcp://172.31.19.171:2375" 
+remote-docker
+Successfully created context "remote-docker"
+[ashu@ip-172-31-46-30 automation]$ docker  context ls
+NAME            DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+default *       Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+remote-docker                                             tcp://172.31.19.171:2375                            
+[ashu@ip-172-31-46-30 automation]$ docker  context use  remote-docker 
+remote-docker
+Current context is now "remote-docker"
+[ashu@ip-172-31-46-30 automation]$ docker  context ls
+NAME              DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+default           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+remote-docker *                                             tcp://172.31.19.171:2375                            
+[ashu@ip-172-31-46-30 automation]$ 
+
+```
+
+### lets check that --
+
+```
+ashu@ip-172-31-46-30 automation]$ docker  version 
+Client:
+ Version:           20.10.13
+ API version:       1.41
+ Go version:        go1.16.15
+ Git commit:        a224086
+ Built:             Thu Mar 31 19:20:32 2022
+ OS/Arch:           linux/amd64
+ Context:           remote-docker
+ Experimental:      true
+
+Server:
+ Engine:
+  Version:          20.10.13
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.16.15
+  Git commit:       906f57f
+  Built:            Thu Mar 31 19:21:13 2022
+  OS/Arch:          linux/amd64
+  Experimental:     false
+```
+
+### 
+
+```
+[ashu@ip-172-31-46-30 automation]$ docker  info 
+Client:
+ Context:    remote-docker
+ Debug Mode: false
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 20.10.13
+ Storage Driver: overlay2
+  Backing Filesystem: xfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+
+```
