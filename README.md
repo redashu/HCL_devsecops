@@ -460,3 +460,149 @@ Server:
   userxattr: false
 
 ```
+
+### vm vs containers 
+
+<img src="vc.png">
+
+## send some request from docker client to docker server 
+
+### checking number of images 
+
+```
+[ashu@ip-172-31-46-30 automation]$ docker  images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+[ashu@ip-172-31-46-30 automation]$ 
+
+
+```
+
+### docker architecture 
+
+<img src="dockerarch.png">
+
+## docker client side operations 
+
+### search 
+
+```
+ docker   search   httpd 
+NAME                                    DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+httpd                                   The Apache HTTP Server Project                  4034      [OK]       
+centos/httpd-24-centos7                 Platform for running Apache httpd 2.4 or bui…   44                   
+centos/httpd                                                                            35                   [OK]
+hypoport/httpd-cgi                      httpd-
+```
+
+### checking images 
+
+```
+docker images 
+
+```
+
+### pull images from docker hub 
+
+```
+docker  pull httpd
+Using default tag: latest
+latest: Pulling from library/httpd
+42c077c10790: Pull complete 
+77a357ba66a8: Pull complete 
+c56c780a8904: Pull complete 
+90bcc5e941a7: Pull complete 
+571750298b32: Pull complete 
+Digest: sha256:c479bec894c5a7f8878b28e52d03cc95b1e784612ecd01ac7c7394fc5fa2e6e2
+Status: Downloaded newer image for httpd:latest
+docker.io/library/httpd:latest
+[ashu@ip-172-31-46-30 automation]$ docker  images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+httpd        latest    98f93cd0ec3b   9 days ago   144MB
+```
+
+### lets start httpd container 
+
+```
+[ashu@ip-172-31-46-30 automation]$ docker  run --name ashuc1  -d  httpd:latest  
+16920dce530ad3d2a1b70a2ec50ed2d2d73c7a684ca0e19ebbff1e449d7ce65f
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ docker  ps
+CONTAINER ID   IMAGE          COMMAND              CREATED         STATUS         PORTS     NAMES
+16920dce530a   httpd:latest   "httpd-foreground"   5 seconds ago   Up 4 seconds   80/tcp    ashuc1
+[ashu@ip-172-31-46-30 automation]$ 
+
+
+
+```
+
+### see list of running containers 
+
+```
+[ashu@ip-172-31-46-30 automation]$ docker  ps
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS          PORTS     NAMES
+6ddefaad36cf   httpd:latest   "httpd-foreground"   22 seconds ago   Up 21 seconds   80/tcp    rajuc1
+8d3f8df9ce12   httpd:latest   "httpd-foreground"   24 seconds ago   Up 23 seconds   80/tcp    saic1
+e4e9f8760303   httpd:latest   "httpd-foreground"   27 seconds ago   Up 26 seconds   80/tcp    vamshi1
+16920dce530a   httpd:latest   "httpd-foreground"   36 seconds ago   Up 35 seconds   80/tcp    ashuc1
+[ashu@ip-172-31-46-30 automation]$ 
+
+```
+
+### vm vs containers resources consumption 
+
+<img src="res.png">
+
+### stop container 
+
+```
+ docker  stop  ashuc1
+ashuc1
+```
+
+### start a container 
+
+```
+docker  start  ashuc1
+ashuc1
+[ashu@ip-172-31-46-30 automation]$ docker  ps
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS         PORTS     NAMES
+16920dce530a   httpd:latest   "httpd-foreground"   14 minutes ago   Up 2 seconds   80/tcp    ashuc1
+[ashu@ip-172-31-46-30 automation]$ 
+
+```
+
+### check logs of docker 
+
+```
+ashu@ip-172-31-46-30 automation]$ docker  logs  ashuc1
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Jun 06 11:53:34.106909 2022] [mpm_
+```
+
+### access container from docker client 
+
+```
+docker  exec  -it  ashuc1   bash 
+root@16920dce530a:/usr/local/apache2# 
+root@16920dce530a:/usr/local/apache2# 
+root@16920dce530a:/usr/local/apache2# ls
+bin  build  cgi-bin  conf  error  htdocs  icons  include  logs  modules
+root@16920dce530a:/usr/local/apache2# cat  /etc/os-release 
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+root@16920dce530a:/usr/local/apache2# exit
+exit
+
+```
+
