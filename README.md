@@ -282,3 +282,36 @@ ansible-playbook -i inventory  apache.yaml --ask-pass
       state: started
 ```
 
+### application deployment problem -- in History 
+
+<img src="appprob1.png">
+
+### app libs conflict 
+
+<img src="conflict.png">
+
+### introduction to hypervisor base vm 
+
+<img src="hyper.png">
+
+### understanding creating VM 
+
+<img src="vm1.png">
+
+
+### app vm need more resources than application need
+
+<img src="need.png">
+
+### vm are limited 
+
+<img src="limited.png">
+
+### welcome to containers and vm vs contianers 
+
+<img src="cont.png">
+
+### Docker being used to create containers 
+
+<img src="cont2.png">
+
