@@ -385,5 +385,87 @@ bash-4.4# jps
 bash-4.4# exit
 exit
 ```
+### webapplication containerization 
+
+<img src="webcont.png">
+
+### html code 
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ashutoshh</title>
+</head>
+<body>
+    <h1> Hello i am ashutoshh </h1>
+    <h2> we are containerizing this website </h2>
+    <h2> we are using nginx webserver this time </h2>
+    <img src="dog.jpg">
+    
+</body>
+</html>
+
+```
+
+### dockerfile 
+
+```
+FROM nginx
+LABEL name=ashutoshh
+COPY ashu.html /usr/share/nginx/html/index.html 
+COPY dog.jpg /usr/share/nginx/html/
+# we are not using CMD 
+# so from statement image CMD will be inherited 
+
+
+```
+
+### image build 
+
+```
+[ashu@ip-172-31-46-30 webapp-image]$ docker  build  -t ashunginx:v1  . 
+Sending build context to Docker daemon  285.7kB
+Step 1/4 : FROM nginx
+latest: Pulling from library/nginx
+42c077c10790: Pull complete 
+62c70f376f6a: Pull complete 
+915cc9bd79c2: Pull complete 
+75a963e94de0: Pull complete 
+7b1fab684d70: Pull complete 
+db24d06d5af4: Pull complete 
+Digest: sha256:2bcabc23b45489fb0885d69a06ba1d648aeda973fae7bb981bafbb884165e514
+Status: Downloaded newer image for nginx:latest
+ ---> 0e901e68141f
+Step 2/4 : LABEL name=ashutoshh
+ ---> Running in e7e572b7950f
+Removing intermediate container e7e572b7950f
+ ---> 9ab5a21f1081
+Step 3/4 : COPY ashu.html /usr/share/nginx/html/index.html
+ ---> e24d52b5d63b
+Step 4/4 : COPY dog.jpg /usr/share/nginx/html/
+ ---> c3f4da375687
+Successfully built c3f4da375687
+Successfully tagged ashunginx:v1
+```
+
+### creating container with port forwarding 
+
+<img src="portf.png">
+
+```
+docker  run -itd --name ashuwebc1  -p  1234:80  ashunginx:v1  
+9b7cf7e28f7eaa1f2fd1e2d1a9b3a86c497d51a3ae687b40fff5edd30971ec4a
+[ashu@ip-172-31-46-30 webapp-image]$ docker  ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+9b7cf7e28f7e   ashunginx:v1   "/docker-entrypoint.…"   9 seconds ago   Up 8 seconds   0.0.0.0:1234->80/tcp, :::1234->80/tcp   ashuwebc1
+[ashu@ip-172-31-46-30 webapp-image]$ 
+
+```
+
+
 
 
