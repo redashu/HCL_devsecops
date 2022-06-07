@@ -114,5 +114,58 @@ docker  kill ashuc1
 ```
 docker  rm  ashuc1
 ```
+### ANswer of question 1 
+
+```
+docker run -d  --name ashuc1  alpine  ping fb.com 
+679bd7a32f3c3db4ff64107094724e00723b3ab48dd0192102f28a605f902690
+[ashu@ip-172-31-46-30 automation]$ docker run -d  --name ashuc2  alpine  ping fb.com 
+3c224acbe2091b776bae61dc60df014d7448e55a1596c25fbd521fce1655dbd9
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ docker  exec  -it  ashuc1  sh 
+/ # 
+/ # pwd
+/
+/ # ls
+bin    etc    lib    mnt    proc   run    srv    tmp    var
+dev    home   media  opt    root   sbin   sys    usr
+/ # echo hello i am ashutoshhh  >helloc1.txt 
+/ # s
+sh: s: not found
+/ # ls
+bin          helloc1.txt  media        proc         sbin         tmp
+dev          home         mnt          root         srv          usr
+etc          lib          opt          run          sys          var
+/ # 
+
+```
+
+### 
+
+```
+ls
+ansible-code  ansible_tasks  ec2.tf  terraform.tfstate  terraform.tfstate.backup
+[ashu@ip-172-31-46-30 automation]$ docker  cp  ashuc1:/helloc1.txt   .  
+[ashu@ip-172-31-46-30 automation]$ ls
+ansible-code  ansible_tasks  ec2.tf  helloc1.txt  terraform.tfstate  terraform.tfstate.backup
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ docker  exec -ti  ashuc2  sh 
+/ # ls 
+bin    etc    lib    mnt    proc   run    srv    tmp    var
+dev    home   media  opt    root   sbin   sys    usr
+/ # exit
+[ashu@ip-172-31-46-30 automation]$ docker cp  helloc1.txt  ashuc2:/
+[ashu@ip-172-31-46-30 automation]$ docker  exec -ti  ashuc2  sh 
+/ # ls
+bin          helloc1.txt  media        proc         sbin         tmp
+dev          home         mnt          root         srv          usr
+etc          lib          opt          run          sys          var
+/ # exit
+[ashu@ip-172-31-46-30 automation]$ 
+```
+
 
 
