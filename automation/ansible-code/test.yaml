@@ -1,0 +1,11 @@
+---
+- hosts: myservers
+  remote_user: ec2-user 
+  tasks: 
+  - name: testing all the target servers
+    command: uptime
+    register: z # storing output using register 
+
+  - name: showing output of date command 
+    debug:
+      msg: "{{ z.stdout }}"

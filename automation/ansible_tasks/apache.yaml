@@ -1,0 +1,8 @@
+---
+- hosts: myvm 
+  remote_user: ec2-user
+  tasks:
+  - name: run another command
+    command: whoami
+  - name: lets run first command 
+    command: date 
