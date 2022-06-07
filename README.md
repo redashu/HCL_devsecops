@@ -301,4 +301,60 @@ e4fd3a571af3   saipython:v1    "python /saicode/hcl…"   2 seconds ago   Up 1 s
   255  docker  logs  -f  ashupyc1
 ```
 
+### docker image for java code 
+
+### code
+```
+class hcl { 
+    public static void main(String args[]) 
+    { 
+        // test expression 
+        while (true) { 
+            System.out.println("Hello World"); 
+  
+            // update expression 
+        } 
+    } 
+} 
+```
+
+### dockerfile
+
+```
+FROM openjdk
+LABEL email=ashutoshh@linux.com
+RUN mkdir /javacode/
+COPY hcl.java /javacode/hcl.java
+WORKDIR /javacode
+# use of WORKDIR is to change folder location for this image
+RUN javac hcl.java
+# compiling code
+CMD ["java","hcl"]
+# defining parent process for docker image 
+
+
+```
+
+### image build 
+
+```
+on]$ ls
+ansible-code   docker-images  helloc1.txt        terraform.tfstate.backup
+ansible_tasks  ec2.tf         terraform.tfstate
+[ashu@ip-172-31-46-30 automation]$ cd  docker-images/
+[ashu@ip-172-31-46-30 docker-images]$ ls
+apache-image  java-image  python-image
+[ashu@ip-172-31-46-30 docker-images]$ cd  java-image/
+[ashu@ip-172-31-46-30 java-image]$ ls
+Dockerfile  hcl.java
+[ashu@ip-172-31-46-30 java-image]$ docker build -t ashujava:v1 . 
+Sending build context to Docker daemon  3.072kB
+Step 1/7 : FROM openjdk
+latest: Pulling from library/openjdk
+90a00d516db1: Pull complete 
+06fc60984518: Pull complete 
+f4f239d0320f: Extracting [==================================>                ]  129.8MB/188.7MB
+
+```
+
 
