@@ -167,5 +167,138 @@ etc          lib          opt          run          sys          var
 [ashu@ip-172-31-46-30 automation]$ 
 ```
 
+### containers are isolated to each other due to Namespace 
+
+<img src="ns.png">
+
+### application containerization 
+
+<img src="appc1.png">
+
+### application containerization -- using build and run 
+
+<img src="build.png">
+
+### building image using dockerfile 
+
+<img src="dfile.png">
+
+### for a better management i am creating folders
+
+```
+ mkdir  docker-images
+[ashu@ip-172-31-46-30 automation]$ ls
+ansible-code   docker-images  helloc1.txt        terraform.tfstate.backup
+ansible_tasks  ec2.tf         terraform.tfstate
+[ashu@ip-172-31-46-30 automation]$ mkdir  docker-images/python-image
+[ashu@ip-172-31-46-30 automation]$ ls  docker-images/
+python-image
+[ashu@ip-172-31-46-30 automation]$ 
+
+```
+
+### creating directory structure 
+
+<img src="ds.png">
+
+### lets containerized python script 
+
+### code 
+
+```
+import time
+while True:
+    print("Hello all , welcome to python..!!")
+    time.sleep(3)
+    print("Welcome to HCL India..")
+    time.sleep(2)
+    print("Welcome to Containers ..!!")
+    print("______________________")
+    time.sleep(3)
+```
+
+### Dockerfile 
+
+```
+FROM python
+# we are asking to docker that plz pull python image from docker hub 
+LABEL name=ashutoshh
+LABEL email=ashutoshh@linux.com
+# above info is optional but this is about your self 
+RUN mkdir  /ashucode 
+# in this image create a folder-- you can give any command 
+COPY hcl.py /ashucode/hcl.py
+# copy code from docker client to docker server inside image which we are building  
+CMD ["python","/ashucode/hcl.py"]
+# we use cmd to fix the default process of image 
+
+
+```
+
+### lets build image 
+
+```
+ docker  images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+[ashu@ip-172-31-46-30 automation]$ docker  build  -t  ashupython:v1  docker-images/python-image/ 
+Sending build context to Docker daemon  3.072kB
+Step 1/6 : FROM python
+latest: Pulling from library/python
+e756f3fdd6a3: Pull complete 
+bf168a674899: Pull complete 
+e604223835cc: Pull complete 
+6d5c91c4cd86: Pull complete 
+2cc8d8854262: Extracting  159.9MB/196.7MB
+2767dbfeeb87: Download complete 
+e5f27d860d89: Download complete 
+
+```
+
+### another way 
+
+```
+ 
+[ashu@ip-172-31-46-30 automation]$ cd  docker-images/python-image/
+[ashu@ip-172-31-46-30 python-image]$ ls
+Dockerfile  hcl.py
+[ashu@ip-172-31-46-30 python-image]$ 
+[ashu@ip-172-31-46-30 python-image]$ 
+[ashu@ip-172-31-46-30 python-image]$ docker  build  -t  ashupython:v1  .
+Sending build context to Docker daemon  3.072kB
+Step 1/6 : FROM python
+ ---> e4ccc57bca82
+Step 2/6 : LABEL name=ashutoshh
+ ---> Using cache
+ ---> 91d209d2e574
+
+```
+
+### checking images 
+
+```
+docker  images
+REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
+ashupython   v1        c7642c24a589   About a minute ago   920MB
+python       latest    e4ccc57bca82   4 days ago           920MB
+```
+
+### creating container 
+
+```
+[ashu@ip-172-31-46-30 python-image]$ docker  run -itd   --name ashupyc1  ashupython:v1   
+8455ab073829651d111d189eed638f10f4f727663def66c3ad1145bae2ef6af6
+[ashu@ip-172-31-46-30 python-image]$ docker ps
+CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS     NAMES
+e4fd3a571af3   saipython:v1    "python /saicode/hcl…"   2 seconds ago   Up 1 second              saic1
+8455ab073829   ashupython:v1   "python /ashucode/hc…"   4 seconds ago   Up 3 seconds             ashupyc1
+```
+
+### output 
+
+   
+```
+254  docker  logs  ashupyc1
+  255  docker  logs  -f  ashupyc1
+```
 
 
