@@ -357,4 +357,33 @@ f4f239d0320f: Extracting [==================================>                ]  
 
 ```
 
+### creating container 
+
+```
+docker  run -itd --name ashujc1 ashujava:v1  
+ce9dee9b39cb7ed8781636ebbbc92706874d689b55ed63cb98d814be9b78c964
+[ashu@ip-172-31-46-30 java-image]$ docker  ps
+CONTAINER ID   IMAGE         COMMAND      CREATED         STATUS        PORTS     NAMES
+ce9dee9b39cb   ashujava:v1   "java hcl"   3 seconds ago   Up 1 second             ashujc1
+[ashu@ip-172-31-46-30 java-image]$ 
+
+```
+
+### check more things 
+
+```
+docker  exec -it  ashujc1  bash 
+bash-4.4# 
+bash-4.4# 
+bash-4.4# java -version 
+openjdk version "18.0.1.1" 2022-04-22
+OpenJDK Runtime Environment (build 18.0.1.1+2-6)
+OpenJDK 64-Bit Server VM (build 18.0.1.1+2-6, mixed mode, sharing)
+bash-4.4# jps
+1 hcl
+271 Jps
+bash-4.4# exit
+exit
+```
+
 
