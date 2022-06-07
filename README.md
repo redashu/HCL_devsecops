@@ -466,6 +466,25 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
 
 ```
 
+### solution 
+
+```
+$ docker build -t  ashunginx:v2  -f  nginx.dockerfile  . 
+Sending build context to Docker daemon  1.653MB
+Step 1/3 : FROM nginx
+ ---> 0e901e68141f
+Step 2/3 : LABEL name=ashutoshh
+ ---> Using cache
+ ---> 9ab5a21f1081
+Step 3/3 : COPY project-html-website /usr/share/nginx/html/
+ ---> 0bd7aef104c8
+Successfully built 0bd7aef104c8
+Successfully tagged ashunginx:v2
+[ashu@ip-172-31-46-30 webapp-image]$ docker  run -itd --name ashujnc2 -p 1789:80 ashunginx:v2 
+76a79bf3642f30ff1b19a21e473cb33513bcb113c28ae941f23cba047eb2c29e
+[ashu@ip-172-31-46-30 webapp-image]$ 
+
+```
 
 
 
