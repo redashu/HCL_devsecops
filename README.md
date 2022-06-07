@@ -486,5 +486,13 @@ Successfully tagged ashunginx:v2
 
 ```
 
+### Devops tools in big picture 
+
+<img src="devops.png">
+
+### Need of CI tools 
+
+<img src="ci.png">
+
 
 
