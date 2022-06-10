@@ -112,3 +112,18 @@ services:
 
 ```
 
+### container are good and also light weight fast , easy to build 
+
+### we have a new problem 
+
+<img src="prob1.png">
+
+### introduction to container orchestration engine 
+
+<img src="carch.png">
+
+### k8s use case with netflix 
+
+<img src="netflix.png">
+
+
