@@ -271,6 +271,12 @@ kustomizeVersion: v4.5.4
 
 <img src="etcd.png">
 
+### kube-schedular -- 
+
+<img src="kube-sch.png">
+
+
+
 ### lets connect to master node
 
 ```
