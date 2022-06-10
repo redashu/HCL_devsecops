@@ -261,3 +261,58 @@ kustomizeVersion: v4.5.4
 <img src="cp.png">
 
 
+### k8s master node components 
+
+### kube-apiserver 
+
+<img src="api.png">
+
+### brain of k8s -- ETCD 
+
+<img src="etcd.png">
+
+### lets connect to master node
+
+```
+kubectl   get  nodes  --kubeconfig  admin.conf  
+NAME            STATUS   ROLES           AGE   VERSION
+anji-work       Ready    <none>          35m   v1.24.1
+control-plane   Ready    control-plane   42m   v1.24.1
+deepak-worker   Ready    <none>          36m   v1.24.1
+divya-worker    Ready    <none>          38m   v1.24.1
+gopal-worker    Ready    <none>          38m   v1.24.1
+hema-worker     Ready    <none>          40m   v1.24.1
+sai-worker      Ready    <none>          39m   v1.24.1
+vamshi-worker   Ready    <none>          39m   v1.24.
+
+```
+
+###
+
+```
+ kubectl   cluster-info  --kubeconfig  admin.conf  
+Kubernetes control plane is running at https://172.31.18.243:6443
+CoreDNS is running at https://172.31.18.243:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+[ashu@ip-172-31-46-30 automation]$ 
+
+```
+
+### setup admin.conf 
+
+```
+ mkdir  ~/.kube
+mkdir: cannot create directory ‘/home/ashu/.kube’: File exists
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ cp  -v  admin.conf   ~/.kube/config 
+‘admin.conf’ -> ‘/home/ashu/.kube/config’
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ 
+[ashu@ip-172-31-46-30 automation]$ kubectl  get  nodes
+NAME            STATUS   ROLES           AGE   VERSION
+anji-work       Ready    <none>          39m   v1.24.1
+control-plane   Ready    control-plane   45m   v1.24.1
+deepak-worker   Ready    <none>          39m   v1.24.1
+divya-worker    Ready    <none>          42m   v1.2
+```
