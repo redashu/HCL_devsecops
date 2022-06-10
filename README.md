@@ -322,3 +322,170 @@ control-plane   Ready    control-plane   45m   v1.24.1
 deepak-worker   Ready    <none>          39m   v1.24.1
 divya-worker    Ready    <none>          42m   v1.2
 ```
+
+### to deploy your container application in k8s check below image --
+
+### we need docker image to be present on Image registry 
+
+<img src="deploy1.png">
+
+### lets deploy -- container image in k8s -- using POD concept 
+
+<img src="pod1.png">
+
+### write first pod file 
+
+```
+apiVersion: v1 # this apiserver version 
+kind: Pod 
+metadata:
+  name: ashu-pod-1 # name of my pod 
+spec: # info about containers 
+  containers: 
+  - name: ashuc1 # you can use same name 
+    image: dockerashu/ashuhcl:appv1 # image from docker hub 
+    ports: # image is having nginx server i.e using 80 
+    - containerPort: 80 # optional field 
+
+```
+
+### now lets deploy it 
+
+```
+ kubectl  get  pods 
+No resources found in default namespace.
+[ashu@ip-172-31-46-30 automation]$ ls
+admin.conf  ansible  docker  jenkins  k8s-deploy  tasks  terraform
+[ashu@ip-172-31-46-30 automation]$ cd  k8s-deploy/
+[ashu@ip-172-31-46-30 k8s-deploy]$ ls
+ashupod1.yaml
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  create  -f ashupod1.yaml 
+pod/ashu-pod-1 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  pods
+NAME         READY   STATUS    RESTARTS   AGE
+ashu-pod-1   1/1     Running   0          6s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+```
+
+### 
+
+```
+[root@control-plane kubernetes]# kubectl  get  pods  -o wide 
+NAME           READY   STATUS    RESTARTS   AGE     IP               NODE            NOMINATED NODE   READINESS GATES
+ashu-pod-1     1/1     Running   0          8m4s    192.168.140.65   anji-work       <none>           <none>
+deepak-pod-1   1/1     Running   0          5m24s   192.168.83.2     sai-worker      <none>           <none>
+divya-pod-1    1/1     Running   0          12m     192.168.47.65    hema-worker     <none>           <none>
+gopal-pod-1    1/1     Running   0          11m     192.168.90.65    gopal-worker    <none>           <none>
+hema-pod-1     1/1     Running   0          2m25s   192.168.97.131   deepak-worker   <none>           <none>
+sai-pod-1      1/1     Running   0          9m45s   192.168.21.193   vamshi-worker   <none>           <none>
+vamshi-pod-1   1/1     Running   0          7m45s   192.168.97.130   deepak-worker   <none>           <none>
+```
+
+### explore more details about pod 
+
+### single pod info 
+
+```
+kubectl  get pod ashu-pod-1     -o wide 
+\NAME         READY   STATUS    RESTARTS   AGE   IP               NODE        NOMINATED NODE   READINESS GATES
+ashu-pod-1   1/1     Running   0          12m   192.168.140.65   anji-work   <none>           <none>
+```
+### describe pod 
+
+```
+kubectl  describe pod ashu-pod-1 
+Name:         ashu-pod-1
+Namespace:    default
+Priority:     0
+Node:         anji-work/172.31.38.23
+Start Time:   Fri, 10 Jun 2022 12:09:54 +0000
+Labels:       <none>
+Annotations:  cni.projectcalico.org/containerID: df005fed1b11eef6d701fee43c2cac87e7ebdd1732ad44ee2e3e238db919dfe8
+              cni.projectcalico.org/podIP: 192.168.140.65/32
+              cni.projectcalico.org/podIPs: 192.168.140.65/32
+Status:       Running
+IP:           192.168.140.65
+IPs:
+  IP:  192.168.140.65
+Containers:
+  ashuc1:
+    Container ID:   containerd://2505051a9395887681dab53ce290578c046aeb3d83e427bf6d81434c037b3817
+    Image:          dockerashu/ashuhcl:appv1
+    Image ID:       docker.io/dockerashu/ashuhcl@sha256:ff6788544523f831bdadd5d376074db3dc49052401e5009e02547992361d44a7
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 10 Jun 2022 12:09:58 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8xhvj (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-8xhvj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  14m   default-scheduler  Successfully assigned default/ashu-pod-1 to anji-work
+  Normal  Pulling    14m   kubelet            Pulling image "dockerashu/ashuhcl:appv1"
+  Normal  Pulled     14m   kubelet            Successfully pulled image "dockerashu/ashuhcl:appv1" in 2.987347197s
+  Normal  Created    14m   kubelet            Created container ashuc1
+  Normal  Started    14m   kubelet            Started container ashuc1
+
+```
+
+### accessing container shell 
+
+```
+kubectl  exec -it ashu-pod-1   -- bash
+root@ashu-pod-1:/# 
+root@ashu-pod-1:/# cd  /usr/share/nginx/html/
+root@ashu-pod-1:/usr/share/nginx/html# ls
+50x.html  health.html  index.html
+root@ashu-pod-1:/usr/share/nginx/html# exit
+exit
+```
+
+### checking logs 
+
+```
+ kubectl  logs  ashu-pod-1 
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2022/06/10 12:09:58 [notice] 1#1: using the "epoll" event method
+2022/06/10 12:09:58 [notice] 1#1: nginx/1.21.6
+2022/06/10 12:09:58 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2022/06/10 12:09:58 [notice] 1#1: OS: Linux 5.10.109-104.500.amzn2.x86_64
+2022/06/10 12:09:58 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/06/10 12:09:58 [notice] 1#1: start worker processes
+2022/06/10 12:09:58 [notice] 1#1: start worker process 31
+```
+### delete pod 
+
+```
+kubectl  delete  pod    ashu-pod-1 
+pod "ashu-pod-1" deleted
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  delete  -f  ashupod1.yaml
+```
+
