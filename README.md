@@ -187,5 +187,18 @@ systemctl daemon-reload
 systemctl restart docker
 
 ```
+### step 3
+### enable kernel bridge module 
+
+```
+[root@ashu-worker ~]# modprobe br_netfilter
+[root@ashu-worker ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+```
+
+### step 4 install kubelet 
+
+```
 
 
+```
