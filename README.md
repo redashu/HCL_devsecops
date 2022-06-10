@@ -168,13 +168,21 @@ logout
 ```
  yum  install  docker  -y ; systemctl enable --now docker
  
- cat  <<X  >/etc/docker/daemon.json
+```
+##
+
+```
+cat  <<X  >/etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
 
 X
 
+```
+
+###
+```
 systemctl daemon-reload
 systemctl restart docker
 
