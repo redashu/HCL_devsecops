@@ -199,6 +199,24 @@ systemctl restart docker
 ### step 4 install kubelet 
 
 ```
-
+cat  <<EOF  >/etc/yum.repos.d/kube.repo
+[kube]
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+gpgcheck=0
+EOF
 
 ```
+### 
+
+```
+yum  install kubelet  kubeadm -y
+
+```
+
+###
+
+```
+ systemctl enable --now kubelet 
+```
+
+
