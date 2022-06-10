@@ -219,4 +219,45 @@ yum  install kubelet  kubeadm -y
  systemctl enable --now kubelet 
 ```
 
+### How to configure k8s client --
+
+```
+
+[root@ip-172-31-46-30 ~]# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   154  100   154    0     0   1842      0 --:--:-- --:--:-- --:--:--  1855
+100 43.5M  100 43.5M    0     0  48.8M      0 --:--:-- --:--:-- --:--:-- 79.3M
+[root@ip-172-31-46-30 ~]# ls
+kubectl  project-website-template
+[root@ip-172-31-46-30 ~]# mv  kubectl  /usr/bin/
+[root@ip-172-31-46-30 ~]# 
+[root@ip-172-31-46-30 ~]# chmod +x  /usr/bin/kubectl 
+[root@ip-172-31-46-30 ~]# 
+[root@ip-172-31-46-30 ~]# 
+
+```
+
+### verify -- 
+
+```
+[ashu@ip-172-31-46-30 automation]$ kubectl  version --client -oyaml 
+clientVersion:
+  buildDate: "2022-05-24T12:26:19Z"
+  compiler: gc
+  gitCommit: 3ddd0f45aa91e2f30c70734b175631bec5b5825a
+  gitTreeState: clean
+  gitVersion: v1.24.1
+  goVersion: go1.18.2
+  major: "1"
+  minor: "24"
+  platform: linux/amd64
+kustomizeVersion: v4.5.4
+
+```
+
+### how k8s client can connect to control plane 
+
+<img src="cp.png">
+
 
