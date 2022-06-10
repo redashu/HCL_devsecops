@@ -126,4 +126,58 @@ services:
 
 <img src="netflix.png">
 
+## Info about kubernetes k8s 
+
+<img src="infok8s.png">
+
+## k8s infra setup 
+
+## minion / worker node setup 
+
+### step 
+
+```
+ ssh -i  ashuday2.pem  ec2-user@3.145.129.211    
+The authenticity of host '3.145.129.211 (3.145.129.211)' can't be established.
+ECDSA key fingerprint is SHA256:6YgQgdI8NKosbE5eb0JvBKU3OX7LddRsFPg8yrLvcLc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '3.145.129.211' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+16 package(s) needed for security, out of 26 available
+Run "sudo yum update" to apply all updates.
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+[ec2-user@ip-172-31-18-243 ~]$ 
+[ec2-user@ip-172-31-18-243 ~]$ 
+[ec2-user@ip-172-31-18-243 ~]$ sudo -i
+[root@ip-172-31-18-243 ~]# hostnamectl set-hostname  ashu-worker
+[root@ip-172-31-18-243 ~]# exit
+logout
+[ec2-user@ip-172-31-18-243 ~]$ sudo -i
+[root@ashu-worker ~]# 
+
+
+```
+
+### step 2 : install and start docker 
+
+```
+ yum  install  docker  -y ; systemctl enable --now docker
+ 
+ cat  <<X  >/etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+
+X
+
+systemctl daemon-reload
+systemctl restart docker
+
+```
+
 
