@@ -146,6 +146,128 @@ NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 ashulb1      NodePort    10.99.228.139   <none>        80:31648/TCP   7s
 ```
 
+### namespace in k8s 
+
+<img src="ns.png">
+
+### all resources are landing in default namespace 
+
+```
+kubectl   get namespaces 
+NAME              STATUS   AGE
+default           Active   21h
+kube-node-lease   Active   21h
+kube-public       Active   21h
+kube-system       Active   21h
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  po 
+No resources found in default namespace.
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  deploy 
+No resources found in default namespace.
+```
+
+### creating namespaces
+
+```
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  create  namespace  ashu-project 
+namespace/ashu-project created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  ns
+NAME              STATUS   AGE
+ashu-project      Active   4s
+default           Active   21h
+kube-node-lease   Active   21h
+kube-public       Active   21h
+kube-system       Active   21h
+```
+
+### setting default namespace 
+
+```
+kubectl  get  pods
+No resources found in default namespace.
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  config set-context --current --namespace=ashu-project 
+Context "kubernetes-admin@kubernetes" modified.
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  pods
+No resources found in ashu-project namespace.
+```
+
+### checking default namespace 
+
+```
+kubectl  config get-contexts 
+CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
+*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin   ashu-project
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+
+```
+
+### deploy in personal namespace 
+
+```
+ 
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  create -f  deployment1.yaml  -f  ashulb1.yaml 
+deployment.apps/ashu-app created
+service/ashulb1 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-app   1/1     1            1           4s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get svc
+NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+ashulb1   NodePort   10.103.144.116   <none>        80:32092/TCP   8s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+```
+
+### some security concerns 
+
+### pushing image to ACR 
+
+```
+ docker  tag  ashusecret:appv1  hclindia.azurecr.io/ashusecret:appv1
+[ashu@ip-172-31-46-30 docker-task1]$ docker login  hclindia.azurecr.io 
+Username: hclindia
+Password: 
+WARNING! Your password will be stored unencrypted in /home/ashu/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[ashu@ip-172-31-46-30 docker-task1]$ docker  push  hclindia.azurecr.io/ashusecret:appv1
+The push refers to repository [hclindia.azurecr.io/ashusecret]
+3127370e3c1e: Pushed 
+33e3df466e11: Pushed 
+747b7a567071: Pushed 
+57d3fc88cb3f: Pushed 
+53ae81198b64: Pushed 
+58354abe5f0e: Pushed 
+ad6562704f37: Pushed 
+appv1: digest: sha256:b11c6f7e20b7036bc503b6c1862440ab281c1979714666c7d66fad4835a55f35 size: 1781
+[ashu@ip-172-31-46-30 docker-task1]$ docker logout   hclindia.azurecr.io 
+Removing login credentials for hclindia.azurecr.io
+```
+
+### creating deployment using ACR image 
+
+```
+kubectl  create deploy  ashu-secure-app --image=hclindia.azurecr.io/ashusecret:appv1   --port 80  --dry-run=client -o yaml >secureapp.yaml
+```
+
+##
+
+```
+
+kubectl  create -f  secureapp.yaml 
+deployment.apps/ashu-secure-app created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get deploy 
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-secure-app   0/1     1            0           10s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  po
+NAME                               READY   STATUS             RESTARTS   AGE
+ashu-secure-app-76b77fffdf-9vkpm   0/1     ImagePullBackOff   0          31s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+
+```
 
 
 
