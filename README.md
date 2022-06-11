@@ -269,6 +269,54 @@ ashu-secure-app-76b77fffdf-9vkpm   0/1     ImagePullBackOff   0          31s
 
 ```
 
+### any private registry image can't be deployed by k8s so need to store that infromation in registry secret 
+
+<img src="secret.png">
+
+### creating 
+
+```
+kubectl  create  secret  docker-registry  ashu-secret  --docker-server=hclindia.azurecr.io  --docker-username=hclindia  --docker-password="u/7xTlSgDT1NA2p"
+
+kubectl  get secrets
+NAME          TYPE                             DATA   AGE
+ashu-secret   kubernetes.io/dockerconfigjson   1      82s
+
+```
+
+### replace with new changes 
+
+```
+ kubectl  replace  -f secureapp.yaml  --force
+deployment.apps "ashu-secure-app" deleted
+deployment.apps/ashu-secure-app replaced
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  deploy 
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-secure-app   0/1     1            0           20s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  po
+NAME                               READY   STATUS    RESTARTS   AGE
+ashu-secure-app-575f6f76f5-68kq9   1/1     Running   0          25s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  deploy 
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-secure-app   1/1     1            1           29s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+```
+
+### --
+
+```
+kubectl  create  -f  ashupod1.yaml  -n  tasks 
+pod/ashu-pod-1 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl get  pods   -n  tasks 
+NAME         READY   STATUS    RESTARTS   AGE
+ashu-pod-1   1/1     Running   0          10s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl get  svc   -n  tasks 
+No resources found in tasks namespace.
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl delete -f ashupod1.yaml   -n  tasks 
+pod "ashu-pod-1" deleted
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+```
+
 
 
 
