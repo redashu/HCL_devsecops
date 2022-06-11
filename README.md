@@ -36,5 +36,33 @@ ashupod2   1/1     Running   0          20s
 hemapod2   1/1     Running   0          8s
 saipod2    1/1     Running   0          5m27s
 ```
+### getting started with k8s networking 
+
+### pod ip can't be reached by public users 
+
+<img src="podip.png">
+
+### k8s internal LB will present in every worker node 
+
+<img src="lb.png">
+
+### creating service 
+
+<img src="svc.png">
+
+```
+kubectl  expose  pod  ashupod2  --type NodePort --port 80 --name ashuinternal-lb 
+service/ashuinternal-lb exposed
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  service 
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+ashuinternal-lb   NodePort    10.105.137.162   <none>        80:31464/TCP   7s
+kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP        19h
+```
+
+### to access application public users can use any worker IP 
+
+<img src="access.png">
+
+
 
 
