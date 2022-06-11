@@ -316,6 +316,10 @@ No resources found in tasks namespace.
 pod "ashu-pod-1" deleted
 [ashu@ip-172-31-46-30 k8s-deploy]$ 
 ```
+### Importance External LB in k8s 
+
+<img src="extlb.png">
+
 
 
 
