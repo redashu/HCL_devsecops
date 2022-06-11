@@ -117,6 +117,17 @@ ashulb1      NodePort    10.97.248.250   <none>        80:30689/TCP   3s
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        17m
 
 ```
+### scaling in pod 
+
+<img src="podscale.png">
+
+## horizental 
+```
+ kubectl   scale deploy  ashu-app  --replicas=3
+deployment.apps/ashu-app scaled
+```
+
+
 
 
 
