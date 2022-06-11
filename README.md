@@ -320,6 +320,36 @@ pod "ashu-pod-1" deleted
 
 <img src="extlb.png">
 
+### cloud service for External LB 
+
+<img src="cloudk8s.png">
+
+### deploy app in azure kubernetes service 
+
+```
+ 
+fire@ashutoshhs-MacBook-Air Downloads % kubectl  get  deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-app   1/1     1            1           44s
+fire@ashutoshhs-MacBook-Air Downloads % 
+fire@ashutoshhs-MacBook-Air Downloads % 
+fire@ashutoshhs-MacBook-Air Downloads % kubectl expose deploy  ashu-app --type LoadBalancer --port 80 --name lb1 
+service/lb1 exposed
+fire@ashutoshhs-MacBook-Air Downloads % kubectl  get  svc 
+NAME         TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP      10.0.0.1      <none>        443/TCP        11m
+lb1          LoadBalancer   10.0.150.87   <pending>     80:31508/TCP   4s
+fire@ashutoshhs-MacBook-Air Downloads % p
+zsh: command not found: p
+fire@ashutoshhs-MacBook-Air Downloads % kubectl  get  svc 
+NAME         TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)        AGE
+kubernetes   ClusterIP      10.0.0.1      <none>          443/TCP        12m
+lb1          LoadBalancer   10.0.150.87   20.204.211.17   80:31508/TCP   56s
+fire@ashutoshhs-MacBook-Air Downloads % 
+
+```
+
+
 
 
 
