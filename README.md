@@ -89,5 +89,34 @@ ashu-app-698f6f66b8-ggt5k   1/1     Running   0          15s
 
 ```
 
+### recreation check 
+
+```
+ kubectl  delete pod ashu-app-698f6f66b8-ggt5k
+pod "ashu-app-698f6f66b8-ggt5k" deleted
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+anji-app-84494dd457-9zflq      1/1     Running   0          3m55s
+ashu-app-698f6f66b8-64tnb      1/1     Running   0          3s
+```
+
+### now creating nodeport service using deployment expose 
+
+```
+ kubectl  expose deployment  ashu-app  --type NodePort --port 80 --name ashulb1 --dry-run=client  -o yaml >ashulb1.yaml 
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   17m
+[ashu@ip-172-31-46-30 k8s-deploy]$ ls
+ashulb1.yaml  ashupod1.yaml  ashupod2.yaml  deployment1.yaml
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  create -f ashulb1.yaml 
+service/ashulb1 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  svc 
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+ashulb1      NodePort    10.97.248.250   <none>        80:30689/TCP   3s
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        17m
+
+```
+
 
 
