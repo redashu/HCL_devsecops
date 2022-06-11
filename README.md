@@ -64,5 +64,30 @@ kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP        19h
 <img src="access.png">
 
 
+### Deployment resource in kubernetes 
+
+<img src="dep.png">
+
+### creating deployment --
+
+```
+kubectl  create  deployment  ashu-app --image=dockerashu/ashuhcl:appv1 --port 80 --dry-run=client -o yaml  >deployment1.yaml 
+```
+
+### deploy it 
+
+```
+ kubectl  create -f  deployment1.yaml 
+deployment.apps/ashu-app created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  deployment  
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-app   1/1     1            1           6s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl   get  po
+NAME                        READY   STATUS    RESTARTS   AGE
+ashu-app-698f6f66b8-ggt5k   1/1     Running   0          15s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+
+```
+
 
 
