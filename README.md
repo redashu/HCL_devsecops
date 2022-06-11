@@ -127,6 +127,25 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        17m
 deployment.apps/ashu-app scaled
 ```
 
+### k8s service will be using label of pod to find 
+
+<img src="labels.png">
+
+### deploy multiple files using kubectl 
+
+```
+kubectl  create  -f deployment1.yaml -f ashulb1.yaml 
+deployment.apps/ashu-app created
+service/ashulb1 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashu-app   1/1     1            1           5s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+ashulb1      NodePort    10.99.228.139   <none>        80:31648/TCP   7s
+```
+
 
 
 
