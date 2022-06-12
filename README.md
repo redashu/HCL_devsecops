@@ -54,5 +54,35 @@ ashulb1234   NodePort   10.111.122.63   <none>        80:31051/TCP   3s
 kubectl  rollout restart  deploy ashufinal-deploy
 ```
 
+### introducing security in devops model -- devsecops 
+
+<img src="devsecops.png">
+
+### introduction to security pipeline 
+
+<img src="secpipe.png">
+
+## SAST
+
+### Sonarqube -- 
+
+[URLdocs](https://www.sonarqube.org/)
+
+### sonarqube can take code from various sources 
+
+<img src="sonar.png">
+
+### security tools and trade 
+
+<img src="sectools.png">
+
+### OWASP docs 
+
+[docslink](https://owasp.org/www-community/Free_for_Open_Source_Application_Security_Tools)
+
+### SAST and DAST 
+
+<img src="tools.png">
+
 
 
