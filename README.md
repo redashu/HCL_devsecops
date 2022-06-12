@@ -84,5 +84,65 @@ kubectl  rollout restart  deploy ashufinal-deploy
 
 <img src="tools.png">
 
+### sonarqube working and architecture 
+
+<img src="sonar_arch.png">
+
+### local code analysis using sonar scanner 
+
+```
+[root@ip-172-31-29-78 ~]# mkdir  /ashu
+[root@ip-172-31-29-78 ~]# cd  /ashu/
+[root@ip-172-31-29-78 ashu]# 
+
+```
+
+### cloning the source code 
+
+```
+git clone https://github.com/redashu/HCLwebapp.git
+Cloning into 'HCLwebapp'...
+remote: Enumerating objects: 51, done.
+remote: Counting objects: 100% (51/51), done.
+remote: Compressing objects: 100% (48/48), done.
+remote: Total 51 (delta 24), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (51/51), 37.44 KiB | 3.40 MiB/s, done.
+Resolving deltas: 100% (24/24), done.
+[root@ip-172-31-29-78 ashu]# ls
+HCLwebapp
+
+```
+
+### lets start analyzing code 
+
+```
+ cd  HCLwebapp/
+[root@ip-172-31-29-78 HCLwebapp]# ls
+Dockerfile  README.md  azure-pipelines.yml  docker-compose.yaml  docker.jpg  finaldeploy.yaml  health.html  index.html
+[root@ip-172-31-29-78 HCLwebapp]# 
+[root@ip-172-31-29-78 HCLwebapp]# 
+[root@ip-172-31-29-78 HCLwebapp]# ls
+Dockerfile  README.md  azure-pipelines.yml  docker-compose.yaml  docker.jpg  finaldeploy.yaml  health.html  index.html
+[root@ip-172-31-29-78 HCLwebapp]# 
+[root@ip-172-31-29-78 HCLwebapp]# sonar-scanner \
+>   -Dsonar.projectKey=ashu-app-security-test1 \
+>   -Dsonar.sources=. \
+>   -Dsonar.host.url=http://3.139.78.243:9000 \
+>   -Dsonar.login=sqp_917d90f2163c7bae11aabc3cddf370e82112d552
+INFO: Scanner configuration file: /opt/sonar/conf/sonar-scanner.properties
+INFO: Project root configuration file: NONE
+INFO: SonarScanner 4.7.0.2747
+INFO: Java 11.0.14.1 Eclipse Adoptium (64-bit)
+INFO: Linux 4.14.275-207.503.amzn2.x86_64 amd64
+INFO: User cache: /root/.sonar/cache
+INFO: Scanner configuration file: /opt/sonar/conf/sonar-scanner.properties
+INFO: Project root configuration file: NONE
+
+
+```
+
+### webUI 
+
+<img src="webui.png">
 
 
