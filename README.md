@@ -241,3 +241,55 @@ Total 11 (delta 0), reused 0 (delta 0), pack-reused 0
 [root@ip-172-31-29-78 ashu]# 
 
 ```
+
+## DAST -- Sysdig -- 
+
+### info 
+
+<ol>
+   <li> open source and Enterprise grade tool for security </li>
+  <li> use commnad line tools as well SAAS cloud  </li>
+ 
+</ol>
+
+### image info 
+
+<img src="sysdig1.png">
+
+### checking commands using sysdig 
+
+```
+root@node155:~# sysdig  -cl
+```
+
+### checking details for a category 
+
+```
+sysdig -c lscontainers
+container.type container.image container.name      container.id 
+-------------- --------------- ------------------- ------------ 
+docker         incomplete      incomplete          1e6bc19fedcc 
+docker         alpine          c1111               166f2bbab39d 
+root@node155:~# sysdig -c netstat
+Proto Server Address           Client Address           State          TID/PID/Program Name
+tcp   127.0.0.1:631            0.0.0.0:*                LISTEN         253947/253947/cupsd
+tcp   ::1:631                  0.0.0.0:*                LISTEN         253947/253947/cupsd
+tcp   127.0.0.1:45747          0.0.0.0:*                LISTEN         2252/938/containerd
+tcp   192.168.1.155:22         192.168.1.4:64636        ESTABLISHED    269755/269755/sshd
+tcp   0.0.0.0:80               0.0.0.0:*                LISTEN         270081/270081/nginx
+tcp   :::80                    0.0.0.0:*                LISTEN         270081/270081/nginx
+
+```
+
+### monitor a particular command 
+
+```
+sysdig  proc.name=cat 
+19038 05:02:42.216993086 1 cat (270520) < execve res=0 exe=cat args=/etc/group. tid=270520(cat) pid=270520(cat) ptid=269809(bash) cwd= fdlimit=1024 pgft_maj=0 pgft_min=24 vm_size=392 vm_rss=4 vm_swap=0 comm=cat cgroups=cpuset=/.cpu=/user.slice.cpuacct=/user.slice.io=/user.slice.memory=/user.slic... env=SHELL=/bin/bash.SSH_AUTH_SOCK=/tmp/ssh-BWrUEQ0Lat/agent.269808.PWD=/home/fire... tty=34817 pgid=270520(cat) loginuid=1000 
+19039 05:02:42.217016421 1 cat (270520) > brk addr=0 
+19040 05:02:42.217017019 1 cat (270520) < brk res=5581D46E2000 vm_size=392 vm_rss=4 vm_swap=0 
+19041 05:02:42.217028382 1 cat (270520) > arch_prctl 
+19042 05:02:42.217028880 1 cat (270520) < arc
+```
+
+
