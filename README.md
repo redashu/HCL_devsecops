@@ -30,6 +30,25 @@ ashufinal-deploy   1/1     1            1           4s
 NAME                                READY   STATUS    RESTARTS   AGE
 ashufinal-deploy-784f87c4bc-68r4t   1/1     Running   0          7s
 ```
+### creating service 
+
+```
+kubectl  get  deploy 
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+ashufinal-deploy   1/1     1            1           8m18s
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  expose deploy  ashufinal-deploy  --type NodePort --port 80 --name ashulb1234 --dry-run=client -o yaml >finallb.yaml 
+[ashu@ip-172-31-46-30 k8s-deploy]$ ls
+ashudep.yaml  ashupod1.yaml  deployment1.yaml  finallb.yaml  secureapp.yaml
+ashulb1.yaml  ashupod2.yaml  finaldeploy.yaml  profile
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  create -f  finallb.yaml 
+service/ashulb1234 created
+[ashu@ip-172-31-46-30 k8s-deploy]$ kubectl  get  svc
+NAME         TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+ashulb1234   NodePort   10.111.122.63   <none>        80:31051/TCP   3s
+[ashu@ip-172-31-46-30 k8s-deploy]$ 
+
+```
+
 
 
 
