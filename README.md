@@ -48,7 +48,11 @@ ashulb1234   NodePort   10.111.122.63   <none>        80:31051/TCP   3s
 [ashu@ip-172-31-46-30 k8s-deploy]$ 
 
 ```
+### rollout deploy 
 
+```
+kubectl  rollout restart  deploy ashufinal-deploy
+```
 
 
 
