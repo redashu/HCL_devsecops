@@ -209,4 +209,35 @@ hclapp.tar (debian 11.3)
 
 ```
 
+### checking filesystem 
 
+```
+ 
+[root@ip-172-31-29-78 ashu]# trivy  fs   ./flask-examples/
+2022-06-12T10:54:45.081Z	INFO	Detected OS: unknown
+2022-06-12T10:54:45.081Z	INFO	Number of PL dependency files: 0
+[root@ip-172-31-29-78 ashu]# trivy  fs   ./HCLwebapp/
+2022-06-12T10:54:58.978Z	INFO	Detected OS: unknown
+2022-06-12T10:54:58.978Z	INFO	Number of PL dependency files: 0
+[root@ip-172-31-29-78 ashu]# 
+[root@ip-172-31-29-78 ashu]# 
+[root@ip-172-31-29-78 ashu]# trivy  fs   /etc
+2022-06-12T10:55:14.780Z	INFO	Detected OS: unknown
+2022-06-12T10:55:14.780Z	INFO	Number of PL dependency files: 0
+[root@ip-172-31-29-78 ashu]# 
+
+```
+
+### checking gitrepo 
+
+```
+ trivy  repo  https://github.com/redashu/HCLwebapp.git
+Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Compressing objects: 100% (9/9), done.
+Total 11 (delta 0), reused 0 (delta 0), pack-reused 0
+2022-06-12T10:57:10.148Z	INFO	Detected OS: unknown
+2022-06-12T10:57:10.148Z	INFO	Number of PL dependency files: 0
+[root@ip-172-31-29-78 ashu]# 
+
+```
