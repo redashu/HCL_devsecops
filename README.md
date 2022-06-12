@@ -145,4 +145,68 @@ INFO: Project root configuration file: NONE
 
 <img src="webui.png">
 
+### DASt with trivy 
+
+<img src="trivy.png">
+
+### trivy overview 
+
+<img src="tv1.png">
+
+## installing trivy 
+
+```
+# 
+[root@ip-172-31-29-78 ashu]# rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.rpm
+Retrieving https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.rpm
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:trivy-0:0.18.3-1                 ################################# [100%]
+[root@ip-172-31-29-78 ashu]# ls
+HCLwebapp  flask-examples  html-sample-app
+[root@ip-172-31-29-78 ashu]# rpm -ql trivy 
+/usr/local/bin/trivy
+[root@ip-172-31-29-78 ashu]# cp  /usr/local/bin/trivy  /usr/bin/
+[root@ip-172-31-29-78 ashu]# 
+[root@ip-172-31-29-78 ashu]# 
+[root@ip-172-31-29-78 ashu]# trivy -v
+Version: 0.18.3
+
+```
+
+### container image scanning for security threats 
+
+```
+ trivy image  alpine 
+2022-06-12T10:42:52.765Z	INFO	Need to update DB
+2022-06-12T10:42:52.765Z	INFO	Downloading DB...
+28.21 MiB / 28.21 MiB [-------------------------------------------------------------------------------] 100.00% 25.11 MiB p/s 1s
+2022-06-12T10:42:54.930Z	INFO	Detected OS: alpine
+2022-06-12T10:42:54.930Z	WARN	This OS version is not on the EOL list: alpine 3.16
+2022-06-12T10:42:54.930Z	INFO	Detecting Alpine vulnerabilities...
+2022-06-12T10:42:54.931Z	INFO	Number of PL dependency files: 0
+2022-06-12T10:42:54.931Z	WARN	This OS version is no longer supported by the distribution: alpine 3.16.0
+2022-06-12T10:42:54.931Z	WARN	The vulnerability detection may be insufficient because security updates are not provided
+
+alpine (alpine 3.16.0)
+======================
+Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+```
+
+### testing bugs in local images 
+
+```
+docker  save 2bfbd3799bdf  -o  hclapp.tar 
+[root@ip-172-31-29-78 ashu]# ls
+HCLwebapp  flask-examples  hclapp.tar  html-sample-app
+[root@ip-172-31-29-78 ashu]# trivy  image --input  hclapp.tar  
+2022-06-12T10:51:03.690Z	INFO	Detected OS: debian
+2022-06-12T10:51:03.690Z	INFO	Detecting Debian vulnerabilities...
+2022-06-12T10:51:03.710Z	INFO	Number of PL dependency files: 1
+2022-06-12T10:51:03.710Z	INFO	Detecting jar vulnerabilities...
+
+hclapp.tar (debian 11.3)
+
+```
+
 
